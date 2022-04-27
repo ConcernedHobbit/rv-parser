@@ -29,8 +29,9 @@ const DEPOSIT_REGEX = new RegExp(
 export const parseBuyEvent = (input: string): BuyEvent => {
   const result = BUY_REGEX.exec(input);
 
-  if (!result || !result.groups)
+  if (!result || !result.groups) {
     throw new ParseError('Could not parse buy event');
+  }
 
   return {
     time: Temporal.PlainDateTime.from(
@@ -46,8 +47,9 @@ export const parseBuyEvent = (input: string): BuyEvent => {
 export const parseDeposit = (input: string): Deposit => {
   const result = DEPOSIT_REGEX.exec(input);
 
-  if (!result || !result.groups)
+  if (!result || !result.groups) {
     throw new ParseError('Could not parse deposit');
+  }
 
   return {
     time: Temporal.PlainDateTime.from(
