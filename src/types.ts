@@ -18,3 +18,20 @@ export type BuyEvent = {
   price: number;
   currency: Currency;
 };
+
+export type DepositRegexGroups = {
+  Date: string;
+  Time: string;
+  Name: string;
+  DepositSaldo: string;
+  InitialSaldo: string;
+  EndSaldo: string;
+};
+
+export type BuyEventRegexGroups = {
+  Date: string;
+  Time: string;
+  Name: string;
+  Item: string;
+  Price: string;
+};

@@ -1,7 +1,12 @@
 import { Temporal } from '@js-temporal/polyfill';
 import { DEPOSIT_MARKER, PURCHASE_MARKER, SALDO_SEPERATOR } from './constants';
 import { ParseError } from './ParseError';
-import { BuyEvent, Deposit } from './types';
+import {
+  BuyEvent,
+  BuyEventRegexGroups,
+  Deposit,
+  DepositRegexGroups
+} from './types';
 import {
   REGEX_DATE,
   REGEX_ITEM,
@@ -11,19 +16,11 @@ import {
   saldoToNumber
 } from './util';
 
-// 2022-04-27 18:40:08 chobbit bought Can return for -0.15 EUR.
 const BUY_REGEX = new RegExp(
   `${REGEX_DATE} ${REGEX_TIME} ${REGEX_NAME} ${PURCHASE_MARKER} ${REGEX_ITEM} for ${REGEX_SALDO(
     'Price'
   )} EUR`
 );
-type BuyEventRegexGroups = {
-  Date: string;
-  Time: string;
-  Name: string;
-  Item: string;
-  Price: string;
-};
 
 const DEPOSIT_REGEX = new RegExp(
   `${REGEX_DATE} ${REGEX_TIME} ${REGEX_NAME} ${DEPOSIT_MARKER} ${REGEX_SALDO(
@@ -33,14 +30,6 @@ const DEPOSIT_REGEX = new RegExp(
   )} ${SALDO_SEPERATOR} ${REGEX_SALDO('EndSaldo')} EUR\\)`,
   'g'
 );
-type DepositRegexGroups = {
-  Date: string;
-  Time: string;
-  Name: string;
-  DepositSaldo: string;
-  InitialSaldo: string;
-  EndSaldo: string;
-};
 
 export const parseBuyEvent = (input: string): BuyEvent => {
   const result = BUY_REGEX.exec(input);
