@@ -24,7 +24,10 @@
     "preset": "ts-jest",
     "testPathIgnorePatterns" : [
       "dist",
-      "src/types.ts"
+      "./src/types.ts"
+    ],
+    "modulePathIgnorePatterns": [
+      "./src/types.ts"
     ]
   },
   "author": {
