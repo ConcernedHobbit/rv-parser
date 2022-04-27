@@ -1,3 +1,7 @@
-# Readme
+# rv-parser
 
-Please, visit [init-typescript-app](https://github.com/barinbritva/init-typescript-app) repository if you need any details about next steps.
+Typed library for parsing [RV](https://rv.tko-aly.fi) log strings.  
+Mainly for personal projects but feel free to use if it helps.
+
+## Documentation
+Coming. Maybe.
