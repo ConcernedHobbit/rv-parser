@@ -1,4 +1,1 @@
-import Greeter from './Greeter'
-
-const greeter = new Greeter('Eetu Raunio', 'rv-parser')
-greeter.sayHello()
+// Empty for now. You can do some testing here.
