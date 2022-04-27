@@ -21,7 +21,10 @@
     "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write"
   },
   "jest": {
-    "preset": "ts-jest"
+    "preset": "ts-jest",
+    "testPathIgnorePatterns" : [
+      "dist" 
+    ]
   },
   "author": {
     "name": "Eetu Raunio"
