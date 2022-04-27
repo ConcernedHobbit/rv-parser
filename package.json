@@ -23,7 +23,8 @@
   "jest": {
     "preset": "ts-jest",
     "testPathIgnorePatterns" : [
-      "dist" 
+      "dist",
+      "src/types.ts"
     ]
   },
   "author": {
