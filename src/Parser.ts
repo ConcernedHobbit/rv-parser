@@ -1,12 +1,7 @@
 import { Temporal } from '@js-temporal/polyfill';
 import { DEPOSIT_MARKER, PURCHASE_MARKER, SALDO_SEPERATOR } from './constants';
 import { ParseError } from './ParseError';
-import {
-  BuyEvent,
-  BuyEventRegexGroups,
-  Deposit,
-  DepositRegexGroups
-} from './types';
+import { BuyEvent, Deposit } from './types';
 import {
   REGEX_DATE,
   REGEX_ITEM,
@@ -37,25 +32,13 @@ export const parseBuyEvent = (input: string): BuyEvent => {
   if (!result || !result.groups)
     throw new ParseError('Could not parse buy event');
 
-  const groups: Partial<BuyEventRegexGroups> = result.groups;
-
-  if (!groups.Date || !groups.Time)
-    throw new ParseError('No datetime could be parsed from buy event');
-
-  if (!groups.Name)
-    throw new ParseError('No username could be parsed from buy event');
-
-  if (!groups.Item)
-    throw new ParseError('No item could be parsed from buy event');
-
-  if (!groups.Price)
-    throw new ParseError('No price could be parsed from buy event');
-
   return {
-    time: Temporal.PlainDateTime.from(`${groups.Date} ${groups.Time}`),
-    username: groups.Name,
-    item: groups.Item,
-    price: saldoToNumber(groups.Price),
+    time: Temporal.PlainDateTime.from(
+      `${result.groups.Date} ${result.groups.Time}`
+    ),
+    username: result.groups.Name,
+    item: result.groups.Item,
+    price: saldoToNumber(result.groups.Price),
     currency: 'EUR'
   };
 };
@@ -66,29 +49,14 @@ export const parseDeposit = (input: string): Deposit => {
   if (!result || !result.groups)
     throw new ParseError('Could not parse deposit');
 
-  const groups: Partial<DepositRegexGroups> = result.groups;
-
-  if (!groups.Date || !groups.Time)
-    throw new ParseError('No datetime could be parsed from deposit');
-
-  if (!groups.Name)
-    throw new ParseError('No username could be parsed from deposit');
-
-  if (!groups.DepositSaldo)
-    throw new ParseError('No amount could be parsed from deposit');
-
-  if (!groups.InitialSaldo)
-    throw new ParseError('No initial saldo could be parsed from deposit');
-
-  if (!groups.EndSaldo)
-    throw new ParseError('No end saldo could be parsed from deposit');
-
   return {
-    time: Temporal.PlainDateTime.from(`${groups.Date} ${groups.Time}`),
-    username: groups.Name,
-    amount: saldoToNumber(groups.DepositSaldo),
-    initialSaldo: saldoToNumber(groups.InitialSaldo),
-    endSaldo: saldoToNumber(groups.EndSaldo),
+    time: Temporal.PlainDateTime.from(
+      `${result.groups.Date} ${result.groups.Time}`
+    ),
+    username: result.groups.Name,
+    amount: saldoToNumber(result.groups.DepositSaldo),
+    initialSaldo: saldoToNumber(result.groups.InitialSaldo),
+    endSaldo: saldoToNumber(result.groups.EndSaldo),
     currency: 'EUR'
   };
 };
